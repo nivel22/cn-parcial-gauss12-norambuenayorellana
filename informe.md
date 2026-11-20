@@ -13,15 +13,15 @@
 
 ## 2. Planteamiento
 
-El trabajo consiste en resolver un sistema lineal \(Ax=b\) de 12 ecuaciones y 12 incógnitas mediante eliminación gaussiana, buscando un costo operacional reducido y una solución numéricamente precisa.
+En este trabajo resolvemos un sistema de 12 ecuaciones con 12 incógnitas ($Ax=b$) usando eliminación gaussiana. La idea es hacer la menor cantidad posible de operaciones y obtener resultados precisos.
 
-La matriz A es densa, con sus 144 elementos distintos de cero. Sus coeficientes presentan diferencias importantes de magnitud y el primer pivote es \(a_{11}=1.3407\times10^{-8}\). Esto puede producir multiplicadores grandes y amplificar los errores de redondeo.
+La matriz A es densa, con sus 144 elementos distintos de cero. Sus coeficientes presentan diferencias importantes de magnitud y el primer pivote es $a_{11}=1.3407\times10^{-8}$. Esto puede generar multiplicadores muy grandes y aumentar los errores de redondeo.
 
 Además, la fila 7 presenta una casi dependencia lineal respecto de las filas 3 y 5, lo que contribuye al elevado condicionamiento del sistema.
 
-El desafío consiste en comparar la eliminación sin pivoteo con el pivoteo parcial escalado, justificando el costo y la exactitud de ambas estrategias.
+Comparamos el método sin pivoteo con el pivoteo parcial escalado para ver cuánto cuesta cada uno y qué tan precisos son los resultados.
 
-Se conservaron los 144 valores originales de A y los 12 valores de b, sin truncamientos, en los archivos de la carpeta `datos/`.
+Guardamos los 144 valores de A y los 12 de b completos, sin cortar cifras, en la carpeta `datos/`.
 
 ## 3. Estrategia de eliminación
 
@@ -29,27 +29,27 @@ Se implementaron dos ejecuciones del mismo algoritmo: una sin pivoteo y otra con
 
 En cada paso k se calcula el multiplicador:
 
-\[
+$$
 m_{ik}=\frac{a_{ik}}{a_{kk}}
-\]
+$$
 
 Posteriormente se actualizan los elementos mediante:
 
-\[
+$$
 a_{ij}=a_{ij}-m_{ik}a_{kj}
-\]
+$$
 
-El multiplicador se calcula una sola vez por fila y se reutiliza para actualizar tanto la matriz como el vector b.
+Calculamos cada multiplicador una sola vez por fila y lo usamos para actualizar la matriz y el vector b.
 
-Para reducir operaciones, el recorrido comienza después de la columna del pivote y no vuelve a procesar los elementos previamente anulados.
+Para ahorrar operaciones, no volvemos a calcular los valores que ya quedaron en cero.
 
 En el pivoteo parcial escalado se calcula primero la escala de cada fila:
 
-\[
+$$
 s_i=\max_j |a_{ij}|
-\]
+$$
 
-La fila pivote se selecciona considerando el mayor cociente \(|a_{ik}|/s_i\). Esta estrategia permite comparar las filas teniendo en cuenta sus diferentes magnitudes.
+La fila pivote se selecciona considerando el mayor cociente $|a_{ik}|/s_i$. Así podemos comparar mejor las filas, aunque tengan valores de tamaños muy distintos.
 
 Se realizaron 11 pasos de eliminación, anulando los 66 elementos bajo la diagonal principal. Finalmente, se utilizó sustitución regresiva para obtener las incógnitas.
 
@@ -87,31 +87,31 @@ La referencia del enunciado es aproximadamente 1486 flops. La diferencia respect
 
 El conteo de 1443 no incluye los cálculos auxiliares de diagnóstico ni el costo adicional del refinamiento, que se efectuó con precisión extendida.
 
-El principal ahorro proviene de reutilizar los multiplicadores, evitar actualizaciones redundantes y no calcular la matriz inversa.
+Ahorramos operaciones porque reutilizamos los multiplicadores, evitamos cálculos repetidos y no usamos la matriz inversa.
 
 ## 5. Análisis de mantisa y pivoteo
 
 Se utilizó aritmética IEEE 754 de doble precisión, cuya precisión significativa es de 53 bits.
 
-El primer pivote, \(1.3407\times10^{-8}\), es muy pequeño frente a otros elementos de su columna. Utilizarlo directamente genera multiplicadores elevados, capaces de amplificar los errores de redondeo.
+El primer pivote, $1.3407\times10^{-8}$, es muy pequeño frente a otros elementos de su columna. Utilizarlo directamente genera multiplicadores elevados, capaces de amplificar los errores de redondeo.
 
 Los resultados de ambas ejecuciones fueron:
 
 | Indicador | Sin pivoteo | Pivoteo escalado |
 |---|---:|---:|
-| Multiplicador máximo | \(2.7526\times10^{13}\) | \(2.4656\times10^{10}\) |
+| Multiplicador máximo | $2.7526\times10^{13}$ | $2.4656\times10^{10}$ |
 | Factor de crecimiento | 2641,22 | 1,7832 |
-| Error relativo | \(2.6802\times10^{-10}\) | \(2.3566\times10^{-13}\) |
+| Error relativo | $2.6802\times10^{-10}$ | $2.3566\times10^{-13}$ |
 
 Para expresar la magnitud de los multiplicadores en términos de bits equivalentes de amplificación potencial, se calculó:
 
-\[
+$$
 \log_2(2.7526\times10^{13})\approx44.65
-\]
+$$
 
-\[
+$$
 \log_2(2.4656\times10^{10})\approx31.20
-\]
+$$
 
 La diferencia fue aproximadamente 13,45 bits equivalentes.
 
@@ -121,33 +121,33 @@ En operaciones de resta entre valores cercanos puede producirse cancelación, di
 
 El factor de crecimiento disminuyó de 2641,22 a 1,7832 con pivoteo escalado, mientras que el error relativo se redujo aproximadamente tres órdenes de magnitud.
 
-Por lo tanto, mantener el pivote inicial sin intercambiar filas resulta numéricamente desfavorable, aunque dicho pivote sea distinto de cero.
+Por eso no conviene usar el primer pivote sin cambiar las filas, aunque su valor no sea cero.
 
 ## 6. Condicionamiento
 
 Se calculó el número de condición de la matriz en norma 2 mediante NumPy:
 
-\[
+$$
 \kappa_2(A)\approx3.0847\times10^{13}
-\]
+$$
 
 Para aritmética de doble precisión, el épsilon de máquina es:
 
-\[
+$$
 \varepsilon\approx2.2204\times10^{-16}
-\]
+$$
 
 El producto obtenido fue:
 
-\[
+$$
 \kappa_2(A)\varepsilon\approx0.0068495
-\]
+$$
 
 Este valor indica una sensibilidad elevada frente a perturbaciones. Una estimación de error de ese orden no permitiría garantizar dos dígitos significativos correctos en el peor caso.
 
 Sin embargo, los errores observados en las ejecuciones fueron considerablemente menores.
 
-Esto ocurre porque el número de condición describe una sensibilidad máxima ante perturbaciones desfavorables, mientras que el error real depende de las perturbaciones concretas introducidas durante el cálculo.
+Esto pasa porque el número de condición muestra lo que podría ocurrir en un caso muy desfavorable, pero el error real depende de lo que sucede en cada cálculo.
 
 Por este motivo, el condicionamiento se complementó con el residuo calculado en precisión extendida, una solución de referencia de alta precisión y un refinamiento iterativo.
 
@@ -182,38 +182,38 @@ El archivo `resultados/solucion.csv` también contiene los valores refinados. Es
 
 Se calculó el residuo del sistema mediante:
 
-\[
+$$
 r=b-Ax
-\]
+$$
 
 Para evitar que el propio cálculo del residuo introdujera errores importantes, se utilizó `mpmath` con 60 dígitos de precisión, considerando los datos decimales originales.
 
 La norma infinito inicial fue:
 
-\[
+$$
 \|r\|_\infty\approx6.09081267902\times10^{-10}
-\]
+$$
 
 Posteriormente se realizó una pasada de refinamiento iterativo reutilizando los factores L y U obtenidos durante la eliminación.
 
 Se resolvió el sistema de corrección:
 
-\[
+$$
 LU\delta x=Pr
-\]
+$$
 
 Y se actualizó la solución mediante:
 
-\[
+$$
 x_{\text{nuevo}}=x+\delta x
-\]
+$$
 
 Los resultados fueron:
 
 | Indicador | Antes | Después |
 |---|---:|---:|
-| Norma infinito del residuo | \(6.0908\times10^{-10}\) | \(4.3007\times10^{-24}\) |
-| Error relativo | \(2.3566\times10^{-13}\) | \(6.1840\times10^{-26}\) |
+| Norma infinito del residuo | $6.0908\times10^{-10}$ | $4.3007\times10^{-24}$ |
+| Error relativo | $2.3566\times10^{-13}$ | $6.1840\times10^{-26}$ |
 
 El refinamiento mejoró tanto el residuo como el error relativo.
 
@@ -221,11 +221,11 @@ La mejora se obtuvo calculando el residuo y la corrección mediante precisión e
 
 Además, se contrastó la solución con `numpy.linalg.solve`, obteniéndose una diferencia absoluta máxima aproximada de:
 
-\[
+$$
 5.44\times10^{-14}
-\]
+$$
 
-La biblioteca se utilizó únicamente como control independiente y no para sustituir la implementación propia de eliminación gaussiana.
+Usamos esta biblioteca solo para comparar resultados, no para reemplazar el método de eliminación gaussiana del programa.
 
 ## 9. Conclusiones
 
@@ -233,11 +233,11 @@ Se consiguió triangularizar la matriz de 12 por 12 mediante 11 pasos, anulando 
 
 La eliminación sin pivoteo y con pivoteo escalado presentaron el mismo costo aritmético principal de 1366 flops. Sin embargo, el pivoteo escalado agregó operaciones de selección e intercambios de filas que mejoraron considerablemente la estabilidad numérica.
 
-El error relativo se redujo desde aproximadamente \(2.68\times10^{-10}\) hasta \(2.36\times10^{-13}\), mientras que el factor de crecimiento disminuyó de 2641,22 a 1,7832.
+El error relativo se redujo desde aproximadamente $2.68\times10^{-10}$ hasta $2.36\times10^{-13}$, mientras que el factor de crecimiento disminuyó de 2641,22 a 1,7832.
 
 La ejecución de una pasada de refinamiento iterativo permitió mejorar aún más la solución, reutilizando la factorización original.
 
-Para un sistema de tamaño \(n=1000\), sería recomendable utilizar operaciones matriciales optimizadas y bibliotecas numéricas eficientes, manteniendo un análisis del costo, la memoria y la estabilidad. La eliminación gaussiana presenta un costo de orden cúbico respecto del tamaño del sistema.
+Para un sistema de tamaño $n=1000$, sería recomendable utilizar operaciones matriciales optimizadas y bibliotecas numéricas eficientes, manteniendo un análisis del costo, la memoria y la estabilidad. La eliminación gaussiana presenta un costo de orden cúbico respecto del tamaño del sistema.
 
 En conclusión, el pivoteo parcial escalado resultó una estrategia adecuada para este caso porque permitió mejorar la exactitud a cambio de un sobrecosto limitado de selección.
 
@@ -271,8 +271,8 @@ La ejecución genera automáticamente los siguientes archivos:
 - `resultados/conteo_flops.md`
 - `resultados/residuo.txt`
 
-Se comprobó su funcionamiento desde una copia limpia del repositorio, instalando las dependencias y ejecutando el programa sin modificar el código.
+También probamos el programa desde una copia nueva del repositorio. Instalamos las dependencias y lo ejecutamos sin cambiar el código.
 
 **Fuentes consultadas:** Enunciado oficial de la Prueba Parcial 3 de Computación Numérica (INF-321), Universidad Católica del Maule; documentación de Python, NumPy y mpmath.
 
-**Declaración del uso de inteligencia artificial:** Se utilizó ChatGPT como herramienta de apoyo para estructurar, desarrollar y revisar la implementación, preparar pruebas numéricas, analizar resultados y elaborar la documentación. Los resultados reportados se obtuvieron mediante la ejecución del programa y las verificaciones descritas.
+**Declaración de uso de inteligencia artificial:** Se utilizó ChatGPT como herramienta de apoyo para resolver dudas puntuales, revisar aspectos de redacción y documentación, y consultar posibles soluciones a dificultades técnicas durante el desarrollo.

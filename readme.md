@@ -1,6 +1,6 @@
 # Taller 3 - El pivote
 
-Proyecto de Computación Numérica que resuelve un sistema de 12 ecuaciones lineales mediante eliminación gaussiana, comparando el método sin pivoteo y con pivoteo parcial escalado. Incluye conteo de operaciones, análisis de precisión y refinamiento iterativo.
+Este proyecto resuelve 12 ecuaciones usando eliminación gaussiana. Comparamos el método sin pivoteo con el pivoteo parcial escalado. También contamos las operaciones y comprobamos los resultados.
 
 ## 1. Autores
 
@@ -32,7 +32,7 @@ Ejecutar desde la raíz del repositorio:
 python src/main.py
 ```
 
-El programa resuelve el sistema y genera automáticamente los cuatro archivos de la carpeta `resultados/`.
+El programa resuelve el sistema y guarda cuatro archivos en la carpeta `resultados/`.
 
 ## 4. Estructura del proyecto
 
@@ -58,7 +58,7 @@ requirements.txt
 
 ## 5. Resultados
 
-Solución obtenida mediante eliminación gaussiana con pivoteo parcial escalado, presentada a diez dígitos significativos.
+Estos son los resultados con pivoteo parcial escalado, escritos con diez dígitos significativos.
 
 | Incógnita | Valor |
 |---|---:|
@@ -92,7 +92,7 @@ Solución obtenida mediante eliminación gaussiana con pivoteo parcial escalado,
 
 ## 7. Informe técnico
 
-El desarrollo matemático, el análisis de mantisa, el condicionamiento y las verificaciones se encuentran en [informe.md](informe.md).
+La explicación de los cálculos y las pruebas está en [informe.md](informe.md).
 
 ## 8. Uso académico
 
