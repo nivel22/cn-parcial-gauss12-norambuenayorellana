@@ -1,4 +1,4 @@
-﻿# El pivote: eliminación gaussiana con mínimo costo operacional y máxima exactitud de mantisa
+# El pivote: eliminación gaussiana con mínimo costo operacional y máxima exactitud de mantisa
 
 ## 1. Identificación
 
@@ -117,7 +117,21 @@ La diferencia fue aproximadamente 13,45 bits equivalentes.
 
 Estas cantidades no representan una medición directa de bits efectivamente perdidos por cancelación. Indican la diferencia de magnitud entre los multiplicadores y su posible efecto sobre la propagación de errores.
 
-En operaciones de resta entre valores cercanos puede producirse cancelación, disminuyendo la cantidad de cifras significativas confiables. Los multiplicadores grandes aumentan el riesgo de amplificar errores previos.
+Para mostrar una cancelación concreta, revisamos el primer paso del pivoteo escalado. En este paso se usa la fila 8 como pivote. Al actualizar la fila 12, columna 4, se obtiene aproximadamente:
+
+$$
+46319.2795 - 46935.5285 = -616.2490
+$$
+
+Los dos valores son cercanos y el resultado es mucho menor. Podemos estimar la reducción de bits significativos con:
+
+$$
+\log_2(46935.5285/616.2490)\approx6.25
+$$
+
+Esto representa una pérdida aproximada de 6,25 bits en esa resta, no en toda la solución.
+
+Sin pivoteo, el primer paso usa un pivote muy pequeño y genera multiplicadores enormes. Esto aumenta el riesgo de errores. Por eso también comparamos el factor de crecimiento y los errores finales.
 
 El factor de crecimiento disminuyó de 2641,22 a 1,7832 con pivoteo escalado, mientras que el error relativo se redujo aproximadamente tres órdenes de magnitud.
 

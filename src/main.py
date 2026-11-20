@@ -44,9 +44,9 @@ def guardar_solucion(solucion, refinada, referencia):
 
             escritor.writerow([
                 f"x{i + 1}",
-                mp.nstr(mp.mpf(str(solucion[i])), 17),
+                mp.nstr(mp.mpf(str(solucion[i])), digitos, strip_zeros=False),
                 digitos,
-                mp.nstr(refinada[i], 35),
+                mp.nstr(refinada[i], digitos_ref, strip_zeros=False),
                 digitos_ref
             ])
 
