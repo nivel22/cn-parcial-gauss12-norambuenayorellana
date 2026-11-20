@@ -1,4 +1,4 @@
-# El pivote: eliminación gaussiana con mínimo costo operacional y máxima exactitud de mantisa
+﻿# El pivote: eliminación gaussiana con mínimo costo operacional y máxima exactitud de mantisa
 
 ## 1. Identificación
 
@@ -99,9 +99,9 @@ Los resultados de ambas ejecuciones fueron:
 
 | Indicador | Sin pivoteo | Pivoteo escalado |
 |---|---:|---:|
-| Multiplicador máximo | $2.7526\times10^{13}$ | $2.4656\times10^{10}$ |
+| Multiplicador máximo | $2.7526\times10^{13}$ | $2.4656\times10^{9}$ |
 | Factor de crecimiento | 2641,22 | 1,7832 |
-| Error relativo | $2.6802\times10^{-10}$ | $2.3566\times10^{-13}$ |
+| Error relativo | $2.0802\times10^{-10}$ | $2.3566\times10^{-13}$ |
 
 Para expresar la magnitud de los multiplicadores en términos de bits equivalentes de amplificación potencial, se calculó:
 
@@ -110,7 +110,7 @@ $$
 $$
 
 $$
-\log_2(2.4656\times10^{10})\approx31.20
+\log_2(2.4656\times10^{9})\approx31.20
 $$
 
 La diferencia fue aproximadamente 13,45 bits equivalentes.
@@ -233,7 +233,7 @@ Se consiguió triangularizar la matriz de 12 por 12 mediante 11 pasos, anulando 
 
 La eliminación sin pivoteo y con pivoteo escalado presentaron el mismo costo aritmético principal de 1366 flops. Sin embargo, el pivoteo escalado agregó operaciones de selección e intercambios de filas que mejoraron considerablemente la estabilidad numérica.
 
-El error relativo se redujo desde aproximadamente $2.68\times10^{-10}$ hasta $2.36\times10^{-13}$, mientras que el factor de crecimiento disminuyó de 2641,22 a 1,7832.
+El error relativo se redujo desde aproximadamente $2.08\times10^{-10}$ hasta $2.36\times10^{-13}$, mientras que el factor de crecimiento disminuyó de 2641,22 a 1,7832.
 
 La ejecución de una pasada de refinamiento iterativo permitió mejorar aún más la solución, reutilizando la factorización original.
 
