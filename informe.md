@@ -159,18 +159,18 @@ Se presentan los valores calculados y la cantidad conservadora de dígitos signi
 
 | Incógnita | Solución calculada | Dígitos correctos |
 |---|---:|---:|
-| x1 | 0.7384915626999453 | 13 |
-| x2 | -1.2059374167993293 | 12 |
-| x3 | 0.00438719520036459 | 10 |
-| x4 | -0.09172645380023377 | 11 |
-| x5 | 2.846109372499657 | 12 |
-| x6 | -0.006281540899463979 | 10 |
-| x7 | 1.4738205916004574 | 12 |
-| x8 | -0.038492716399937434 | 11 |
-| x9 | 0.9152648036998292 | 12 |
-| x10 | -2.607139485200364 | 12 |
-| x11 | 0.05187362939993543 | 11 |
-| x12 | -1.0849371625003397 | 12 |
+| x1 | 0.7384915626999 | 13 |
+| x2 | -1.20593741680 | 12 |
+| x3 | 0.004387195200 | 10 |
+| x4 | -0.091726453800 | 11 |
+| x5 | 2.84610937250 | 12 |
+| x6 | -0.006281540899 | 10 |
+| x7 | 1.47382059160 | 12 |
+| x8 | -0.038492716400 | 11 |
+| x9 | 0.915264803700 | 12 |
+| x10 | -2.60713948520 | 12 |
+| x11 | 0.051873629400 | 11 |
+| x12 | -1.08493716250 | 12 |
 
 Los valores mostrados corresponden a las soluciones calculadas, no a una afirmación de que todas sus cifras sean correctas. La tercera columna indica cuántos dígitos significativos se consideran defendibles según la comparación individual.
 
@@ -276,3 +276,4 @@ También probamos el programa desde una copia nueva del repositorio. Instalamos 
 **Fuentes consultadas:** Enunciado oficial de la Prueba Parcial 3 de Computación Numérica (INF-321), Universidad Católica del Maule; documentación de Python, NumPy y mpmath.
 
 **Declaración de uso de inteligencia artificial:** Se utilizó ChatGPT como herramienta de apoyo para resolver dudas puntuales, revisar aspectos de redacción y documentación, y consultar posibles soluciones a dificultades técnicas durante el desarrollo.
+
