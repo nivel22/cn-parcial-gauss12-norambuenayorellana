@@ -14,7 +14,7 @@ Este proyecto resuelve 12 ecuaciones usando eliminación gaussiana. Comparamos e
 
 ## 2. Requisitos
 
-- Python 3.10 o superior.
+- Python 3.14.0.
 - NumPy 2.5.5.
 - mpmath 1.4.1.
 
