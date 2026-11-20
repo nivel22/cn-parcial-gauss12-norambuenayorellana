@@ -1,99 +1,30 @@
 # Taller 3 - El pivote
 
-Este proyecto resuelve 12 ecuaciones usando eliminación gaussiana. Comparamos el método sin pivoteo con el pivoteo parcial escalado. También contamos las operaciones y comprobamos los resultados.
+Resolvemos un sistema de 12 ecuaciones con eliminación gaussiana, sin pivoteo y con pivoteo parcial escalado. Comparamos el costo y los resultados.
 
-## 1. Autores
+**1. Autores y asignatura:** Paloma Norambuena y Jeremy Orellana. Computación Numérica (INF-321), Universidad Católica del Maule, sección 2, 2026.
 
-- Paloma Norambuena
-- Jeremy Orellana
+**2. Requisitos:** Python 3.10 o superior, NumPy 2.5.5 y mpmath 1.4.1. Instalar con `pip install -r requirements.txt`.
 
-**Asignatura:** Computación Numérica (INF-321)  
-**Universidad:** Universidad Católica del Maule  
-**Sección:** 2  
-**Año:** 2026
+**3. Ejecución:** Desde la carpeta principal, ejecutar `python src/main.py`. El programa genera los cuatro archivos de `resultados/`.
 
-## 2. Requisitos
+**4. Estructura:** `datos/` (matriz y vector), `src/` (programa y comprobaciones), `resultados/` (solución, traza, conteo y residuo). En la raíz están `informe.md`, `readme.md`, `requirements.txt` y `.gitignore`.
 
-- Python 3.14.0.
-- NumPy 2.5.5.
-- mpmath 1.4.1.
+**5. Resultados:** Solución con pivoteo parcial escalado, con diez dígitos significativos.
 
-Instalar las dependencias desde la carpeta principal:
+| Incógnita | Valor | Incógnita | Valor |
+|---|---:|---|---:|
+| x1 | 0.7384915627 | x7 | 1.473820592 |
+| x2 | -1.205937417 | x8 | -0.03849271640 |
+| x3 | 0.004387195200 | x9 | 0.9152648037 |
+| x4 | -0.09172645380 | x10 | -2.607139485 |
+| x5 | 2.846109372 | x11 | 0.05187362940 |
+| x6 | -0.006281540899 | x12 | -1.084937163 |
 
-```bash
-pip install -r requirements.txt
-```
+**Costo:** 1366 flops principales; 1443 con divisiones de selección. **Residuo:** norma infinito inicial `6.09081267902e-10`; después del refinamiento `4.30068236118e-24`.
 
-## 3. Ejecución
+**6. Archivos generados:** `resultados/solucion.csv`, `resultados/traza_eliminacion.txt`, `resultados/conteo_flops.md` y `resultados/residuo.txt`.
 
-Ejecutar desde la raíz del repositorio:
+**7. Informe:** Los cálculos y explicaciones están en [informe.md](informe.md).
 
-```bash
-python src/main.py
-```
-
-El programa resuelve el sistema y guarda cuatro archivos en la carpeta `resultados/`.
-
-## 4. Estructura del proyecto
-
-```text
-datos/
-  matriz_a.csv
-  vector_b.csv
-src/
-  gauss.py
-  conteo.py
-  verificacion.py
-  main.py
-resultados/
-  solucion.csv
-  traza_eliminacion.txt
-  conteo_flops.md
-  residuo.txt
-informe.md
-readme.md
-requirements.txt
-.gitignore
-```
-
-## 5. Resultados
-
-Estos son los resultados con pivoteo parcial escalado, escritos con diez dígitos significativos.
-
-| Incógnita | Valor |
-|---|---:|
-| x1 | 0.7384915627 |
-| x2 | -1.205937417 |
-| x3 | 0.004387195200 |
-| x4 | -0.09172645380 |
-| x5 | 2.846109372 |
-| x6 | -0.006281540899 |
-| x7 | 1.473820592 |
-| x8 | -0.03849271640 |
-| x9 | 0.9152648037 |
-| x10 | -2.607139485 |
-| x11 | 0.05187362940 |
-| x12 | -1.084937163 |
-
-**Costo principal:** 1366 flops.
-
-**Costo aritmético parcial con selección escalada:** 1443 flops.
-
-**Norma infinito del residuo inicial:** 6.09081267902 × 10⁻¹⁰.
-
-**Norma infinito después del refinamiento:** 4.30068236118 × 10⁻²⁴.
-
-## 6. Archivos generados
-
-- `solucion.csv`: incógnitas originales, refinadas y dígitos correctos estimados.
-- `traza_eliminacion.txt`: once pasos de eliminación por cada estrategia.
-- `conteo_flops.md`: desglose de operaciones aritméticas y costo del pivoteo.
-- `residuo.txt`: residuos y errores antes y después del refinamiento.
-
-## 7. Informe técnico
-
-La explicación de los cálculos y las pruebas está en [informe.md](informe.md).
-
-## 8. Uso académico
-
-Proyecto desarrollado por Paloma Norambuena y Jeremy Orellana para la evaluación de Computación Numérica de la Universidad Católica del Maule, 2026. Su contenido se publica con fines académicos.
+**8. Uso académico:** Trabajo de Paloma Norambuena y Jeremy Orellana para Computación Numérica, UCM, 2026. Publicado con fines académicos.
